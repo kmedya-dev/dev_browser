@@ -29,8 +29,17 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+    - name: Download Android command-line tools
+      run: wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
+
+    - name: Unzip Android command-line tools
+      run: unzip commandlinetools-linux-10406996_latest.zip -d $ANDROID_HOME/cmdline-tools
+
+    - name: Move Android command-line tools
+      run: mv $ANDROID_HOME/cmdline-tools/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
+
+    - name: Add Android SDK to PATH
+      run: echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
 
     - name: Create Android license file
       run: |
