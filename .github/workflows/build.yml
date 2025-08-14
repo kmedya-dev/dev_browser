@@ -29,6 +29,9 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
+    - name: Remove existing Android command-line tools
+      run: rm -rf $ANDROID_HOME/cmdline-tools/latest
+
     - name: Download Android command-line tools
       run: wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
 
