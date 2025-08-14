@@ -16,7 +16,6 @@ android.log_level = 2
 
 android.api = 35
 android.minapi = 21
-android.sdk = 35
 android.ndk = 25b
 
 # Intent filter to handle http and https URLs
