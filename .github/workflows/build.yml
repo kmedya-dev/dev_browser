@@ -47,5 +47,4 @@ jobs:
         name: dev-browser-debug
         path: |
           bin/*.apk
-          
           .buildozer/buildozer.log
