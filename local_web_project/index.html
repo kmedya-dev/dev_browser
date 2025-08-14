@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Browser</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="controls">
+        <input type="text" id="url-input" placeholder="Enter URL or search query">
+        <button id="go-btn">Go</button>
+        <button id="theme-btn">Toggle Theme</button>
+        <button id="lang-btn">বাংলা</button>
+        <button id="bookmark-btn">Bookmark</button>
+    </div>
+
+    <div id="bookmarks" style="display: none;">
+        <h2>Bookmarks</h2>
+        <ul id="bookmark-list"></ul>
+    </div>
+
+    <div id="content">
+        <h1>Welcome to Dev Browser</h1>
+        <p>Your local web project is running.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

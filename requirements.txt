@@ -1,0 +1,3 @@
+pywebview[qt]
+watchdog
+beautifulsoup4
