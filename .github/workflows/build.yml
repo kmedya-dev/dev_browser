@@ -38,6 +38,9 @@ jobs:
     - name: Unzip Android command-line tools
       run: unzip commandlinetools-linux-10406996_latest.zip -d $ANDROID_HOME/cmdline-tools
 
+    - name: Create latest directory
+      run: mkdir -p $ANDROID_HOME/cmdline-tools/latest
+
     - name: Move Android command-line tools
       run: mv $ANDROID_HOME/cmdline-tools/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
 
