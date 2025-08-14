@@ -29,29 +29,22 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
 
-    - name: Remove existing Android command-line tools
-      run: rm -rf $ANDROID_HOME/cmdline-tools/latest
+    - name: Install Android SDK Build Tools
+        run: |
+          export ANDROID_HOME=$HOME/.buildozer/android/platform/android-sdk
+          mkdir -p "$ANDROID_HOME"
 
-    - name: Download Android command-line tools
-      run: wget https://dl.google.com/android/repository/commandlinetools-linux-10406996_latest.zip
+          # Download command line tools
+          wget -q "https://dl.google.com/android/repository/commandlinetools-linux-13114758_latest.zip" -O /tmp/cmdline-tools.zip
+          unzip -q /tmp/cmdline-tools.zip -d "$ANDROID_HOME/cmdline-tools"
+          mv "$ANDROID_HOME/cmdline-tools/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
 
-    - name: Unzip Android command-line tools
-      run: unzip commandlinetools-linux-10406996_latest.zip -d $ANDROID_HOME/cmdline-tools
+          # Symlink sdkmanager for legacy usage
+          mkdir -p "$ANDROID_HOME/tools/bin"
+          ln -sf "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "$ANDROID_HOME/tools/bin/sdkmanager"
 
-    - name: Create latest directory
-      run: mkdir -p $ANDROID_HOME/cmdline-tools/latest
-
-    - name: Move Android command-line tools
-      run: mv $ANDROID_HOME/cmdline-tools/cmdline-tools/* $ANDROID_HOME/cmdline-tools/latest
-
-    - name: Add Android SDK to PATH
-      run: echo "$ANDROID_HOME/cmdline-tools/latest/bin" >> $GITHUB_PATH
-
-    - name: Create Android license file
-      run: |
-        mkdir -p $ANDROID_HOME/licenses
-        echo -e "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $ANDROID_HOME/licenses/android-sdk-license
-        ls -l $ANDROID_HOME/licenses
+          # Accept all SDK licenses
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --sdk_root="$ANDROID_HOME" --licenses
 
     - name: Build debug APK
       run: buildozer android debug
